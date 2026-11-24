@@ -2,11 +2,12 @@
 
 A plugin for [Kirby CMS](https://getkirby.com/docs/reference).
 
-- provides an anchor field for the panel
+Provides an anchor and anchorpicker field for the panel in pages.
+
 
 ## Requirements
 
-- Kirby 5.1+ (just tested with 5.1 probably works on previous versions too)
+- Kirby 6.0+ (for Kirby 5.1+ there is release version 1.0.0)
 
 ## Installation
 
