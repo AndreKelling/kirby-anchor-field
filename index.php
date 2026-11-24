@@ -2,10 +2,12 @@
 declare(strict_types=1);
 
 use KirbyAnchorField\AnchorField;
+use KirbyAnchorField\AnchorOptions;
 use KirbyAnchorField\AnchorPickerField;
 
 load([
   'KirbyAnchorField\\AnchorField'       => 'classes/AnchorField.php',
+  'KirbyAnchorField\\AnchorOptions'     => 'classes/AnchorOptions.php',
   'KirbyAnchorField\\AnchorPickerField' => 'classes/AnchorPickerField.php',
 ], __DIR__);
 
@@ -18,35 +20,14 @@ Kirby::plugin('andrekelling/kirby-anchor-field', [
     'routes' => [
       [
         'pattern' => 'anchor-options/(:any)',
-        'action' => function (string $pageId) {
+        'action' => function (string $pageId): array {
           $page = kirby()->page(str_replace('+', '/', $pageId));
-          $options = [];
 
           if (!$page) {
-            return $options;
+            return [];
           }
 
-          foreach ($page->content()->data() as $value) {
-            if (!is_string($value)) {
-              continue;
-            }
-            $blocks = json_decode($value, true);
-            if (!is_array($blocks)) {
-              continue;
-            }
-            foreach ($blocks as $block) {
-              $anchor = trim($block['content']['anchor'] ?? '');
-              if (empty($anchor)) {
-                continue;
-              }
-              // TODO hold possible title fields as option default
-              $title = strip_tags($block['content']['title'] ?? $block['content']['headline'] ?? $block['content']['topline'] ?? '');
-              $label = $block['type'] .' - '. $title . ' (#' . $anchor . ')';
-              $options[] = ['value' => '#' . $anchor, 'text' => $label];
-            }
-          }
-
-          return $options;
+          return AnchorOptions::fromPage($page);
         }
       ]
     ]

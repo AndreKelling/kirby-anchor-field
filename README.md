@@ -25,8 +25,8 @@ composer require andrekelling/kirby-anchor-field
 
 Add an `anchor` field to each block blueprint that should be a link target. 
 - validates a CSS/URL-safe ID 
-- suggests one of a block's fields named `title`, `headline` or `topline` (quite custom probably not your used field names) when focused while empty
-- validates for duplicate IDs on the same page
+- suggests one of a block's fields named `title`, `headline` or `topline` (quite custom hopefully you use one of these field names. works without but better for reference in the anchorNav) when focused while empty
+- validates for duplicate IDs on the same page (just the anchor field. not over all anchors used on a page)
 
 ```yaml
 fields:
@@ -36,6 +36,8 @@ fields:
 
 Add an `anchorpicker` field to the blueprint where editors should create navigation entries.
 - lists anchors from the current page 
+  - from all anchor fields
+  - from all links that are anchors (hopefully all)
 - save the page after adding or changing anchors to refresh the available choices
 
 ```yaml
