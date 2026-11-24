@@ -99,6 +99,7 @@ export default {
     value: Array,
     colors: [Boolean, Array, Object],
   },
+  emits: ["input"],
   data() {
     return {
       anchorOptions: [],
@@ -145,7 +146,7 @@ export default {
     this.fetchAnchors();
     this.$panel.events.on("model.update", this.fetchAnchors);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.$panel.events.off("model.update", this.fetchAnchors);
   },
   methods: {
@@ -158,7 +159,7 @@ export default {
       this.emit();
     },
     update(i, key, val) {
-      this.$set(this.entries[i], key, val);
+      this.entries[i][key] = val;
       this.emit();
     },
     emit() {

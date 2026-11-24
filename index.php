@@ -1,93 +1,18 @@
 <?php
-use Kirby\Exception\Exception as KirbyException;
+declare(strict_types=1);
+
+use KirbyAnchorField\AnchorField;
+use KirbyAnchorField\AnchorPickerField;
+
+load([
+  'KirbyAnchorField\\AnchorField'       => 'classes/AnchorField.php',
+  'KirbyAnchorField\\AnchorPickerField' => 'classes/AnchorPickerField.php',
+], __DIR__);
 
 Kirby::plugin('andrekelling/kirby-anchor-field', [
   'fields' => [
-    'anchor' => [
-      'extends' => 'text',
-      'validations' => [
-        'css-url-safe' => function ($value) {
-          if (empty($value)) {
-            return; // skip validation for optional empty fields
-          }
-          $pattern = '^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$';
-          if (!preg_match('~' . $pattern . '~', $value)) {
-            throw new \Kirby\Exception\InvalidArgumentException(t('anchor.cssUrlSafe'));
-          }
-        },
-        'unique' => function ($value) {
-          if (empty($value)) {
-            return; // skip validation for optional empty fields
-          }
-          $count = 0;
-          // Use submitted request data, not saved model data
-          $blocks = kirby()->request()->data()['blocks'];
-          if (!is_array($blocks) || empty($blocks) || !isset($blocks[0]['type'], $blocks[0]['content'])) {
-            return;
-          }
-          foreach ($blocks as $block) {
-            if (trim($block['content']['anchor'] ?? '') === $value) {
-              $count++;
-            }
-          }
-          if ($count > 1) {
-            throw new \Kirby\Exception\InvalidArgumentException(t('anchor.unique'));
-          }
-        }
-      ]
-    ],
-    'anchorpicker' => [
-      'props' => [
-        'value' => function ($value = null) {
-          if (is_string($value) && $value !== '') {
-            $decoded = json_decode($value, true);
-            return is_array($decoded) ? $decoded : [];
-          }
-          return is_array($value) ? $value : [];
-        },
-        'help' => function ($help = null) {
-          if ($help === null) {
-            return t('anchor-picker.help');
-          }
-          return $help;
-        },
-        'colors' => function ($colors = false) {
-          if ($colors === true) {
-            $plugins = array_keys(kirby()->plugins());
-
-            if (!in_array('tobimori/color-palette', $plugins)) {
-              throw new KirbyException(
-                'andrekelling/kirby-anchor-field plugin requires the "tobimori/color-palette" plugin to be installed. When using the colors field. '
-              );
-            }
-
-            return [
-              'type' => 'color-palette',
-              'size' => 'small',
-              'unselect' => true,
-              'options' => kirby()->extension('fields', 'color-palette')['props']['options'] ?? [],
-            ];
-          }
-
-          return $colors;
-        }
-      ],
-      'save' => function ($value) {
-        return is_array($value) ? json_encode(array_values($value)) : ($value ?? '');
-      },
-      'validations' => [
-        'all-filled' => function ($value) {
-          if (empty($value)) {
-            return; // skip validation for optional empty fields
-          }
-          foreach ($value as $item) {
-            if (empty($item['label'])||  empty($item['anchor'])) {
-              throw new \Kirby\Exception\InvalidArgumentException(t('anchor-picker.notallfilled'));
-            }
-          }
-        },
-      ]
-    ],
+    'anchor' => AnchorField::class,
+    'anchorpicker' => AnchorPickerField::class,
   ],
   'api' => [
     'routes' => [

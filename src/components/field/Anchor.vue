@@ -48,6 +48,7 @@ export default {
       default: "anchor"
     },
   },
+  emits: ["input"],
   data() {
     return {
       localValue: this.value ?? "",
@@ -66,7 +67,7 @@ export default {
     this.fetchAnchors();
     this.$panel.events.on("model.update", this.fetchAnchors);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.$panel.events.off("model.update", this.fetchAnchors);
   },
   methods: {
