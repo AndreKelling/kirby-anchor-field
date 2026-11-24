@@ -44,10 +44,8 @@ fields:
     colors: true
 ```
 
-The optional `colors: true` setting uses that [Kirby Color Palette plugin](https://packagist.org/packages/tobimori/kirby-color-palette). 
-Falls back to Kirby's default color picker if not installed.
+The optional `colors: true` setting requires that [Kirby Color Palette plugin](https://packagist.org/packages/tobimori/kirby-color-palette).
 Omit it if you don't need color selection.
-
 
 Read the entries in a template with `toAnchorArray()`. Each entry has `label`, `anchor` (for example, `#about`) and `color` properties:
 
