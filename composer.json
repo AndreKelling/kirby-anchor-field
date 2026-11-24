@@ -1,0 +1,16 @@
+{
+  "name": "andrekelling/kirby-anchor-field",
+  "description": "Add anchor type field for Kirby Panel",
+  "type": "kirby-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "André Kelling",
+      "email": "kontakt@andrekelling.de"
+    }
+  ],
+  "require": {
+    "getkirby/composer-installer": "^1.2"
+  },
+  "minimum-stability": "beta"
+}
