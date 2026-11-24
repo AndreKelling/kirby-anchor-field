@@ -3,7 +3,7 @@
   "description": "Add anchor type field for Kirby Panel",
   "homepage:": "https://github.com/AndreKelling/kirby-anchor-field/",
   "type": "kirby-plugin",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "license": "MIT",
   "authors": [
     {
@@ -16,7 +16,7 @@
   },
   "extra": {
     "kirby": {
-      "compatible": "^5.0"
+      "compatible": "^6.0"
     }
   },
   "minimum-stability": "beta"

@@ -42,6 +42,7 @@ class AnchorPickerField extends InputField
 
         $plugins = array_keys(kirby()->plugins());
 
+        // TODO probably needs updated tobimori/color-palette plugin first!
         if (in_array('tobimori/color-palette', $plugins, true) === false) {
             throw new KirbyException(
                 'andrekelling/kirby-anchor-field plugin requires the "tobimori/color-palette" plugin to be installed. When using the colors field. '
