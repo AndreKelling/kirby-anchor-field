@@ -5,6 +5,9 @@
   "type": "kirby-plugin",
   "version": "2.1.0",
   "license": "MIT",
+  "scripts": {
+    "test": "phpunit"
+  },
   "authors": [
     {
       "name": "André Kelling",
@@ -27,8 +30,5 @@
       "compatible": "^6.0"
     }
   },
-  "minimum-stability": "beta",
-  "scripts": {
-    "test": "phpunit"
-  }
+  "minimum-stability": "beta"
 }
