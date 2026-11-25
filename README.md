@@ -6,7 +6,7 @@ A plugin for [Kirby CMS](https://getkirby.com/docs/reference).
 
 ## Requirements
 
-- Kirby 5.1+ (just tested with 5.1 probably works on previous versions too)
+- Kirby 5.1+ (just tested with 5.1 probably works on previous versions too) – not compatible with Kirby 6
 
 ## Installation
 
